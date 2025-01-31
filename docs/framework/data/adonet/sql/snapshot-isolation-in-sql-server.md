@@ -30,7 +30,9 @@ SET READ_COMMITTED_SNAPSHOT ON
 ```  
   
  Setting the READ_COMMITTED_SNAPSHOT ON option allows access to versioned rows under the default READ COMMITTED isolation level. If the READ_COMMITTED_SNAPSHOT option is set to OFF, you must explicitly set the Snapshot isolation level for each session in order to access versioned rows.  
-  
+
+ Setting the ALLOW_SNAPSHOT_ISOLATION ON option can be executed whilst there are other connections open to the database. When you set the READ_COMMITTED_SNAPSHOT option, only the connection executing the ALTER DATABASE command is allowed in the database. There must be no other open connection in the database until ALTER DATABASE is complete. The database does not have to be in single-user mode.
+
 ## Managing Concurrency with Isolation Levels  
 
  The isolation level under which a Transact-SQL statement executes determines its locking and row versioning behavior. An isolation level has connection-wide scope, and once set for a connection with the SET TRANSACTION ISOLATION LEVEL statement, it remains in effect until the connection is closed or another isolation level is set. When a connection is closed and returned to the pool, the isolation level from the last SET TRANSACTION ISOLATION LEVEL statement is retained. Subsequent connections reusing a pooled connection use the isolation level that was in effect at the time the connection is pooled.  
